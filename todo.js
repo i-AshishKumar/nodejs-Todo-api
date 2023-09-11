@@ -1,10 +1,12 @@
 const express = require('express')
 const path = require('path')
-
+const cors = require('cors');
 const port = process.env.PORT || 5000
 const app = new express()
 
 app.set('view engine','ejs')
+
+app.use(cors());
 app.use(express.json())
 
 let todos = [
@@ -52,7 +54,6 @@ app.put('/api/todos/:id',(req,res)=>{
 })
 
 app.delete('/api/todos/:id',(req,res)=>{
-    // const task = todos.find(e=>{return e.id == req.params.id})
     todos = todos.filter(e=>{return e.id != req.params.id})
     console.log(todos)
     return res.send(`Deleted task ${req.params.id} Successfully`)
